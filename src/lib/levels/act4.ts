@@ -187,11 +187,11 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['4-4'],
-    commandsIntroduced: ['perf record -p', 'perf record -C', 'perf report --dsos'],
-    conceptsIntroduced: ['PID filtering', 'CPU filtering', 'DSO filtering', 'targeted profiling'],
+    commandsIntroduced: ['perf record -p'],
+    conceptsIntroduced: ['PID filtering', 'targeted profiling'],
     preLesson: {
-      en: 'On a busy system, perf record captures everything by default. You can focus on specific targets: -p PID profiles a specific process, -C 0,1 profiles specific CPU cores, and --dsos in perf report filters by shared library. Targeted profiling reduces noise and file size while focusing on what matters.',
-      he: 'במערכת עמוסה, perf record לוכד הכל כברירת מחדל. אפשר להתמקד במטרות ספציפיות: -p PID עושה פרופיילינג לתהליך ספציפי, -C 0,1 עושה פרופיילינג לליבות CPU ספציפיות, ו---dsos ב-perf report מסנן לפי ספרייה משותפת. פרופיילינג ממוקד מפחית רעש וגודל קובץ תוך התמקדות במה שחשוב.',
+      en: 'On a busy system, perf record captures everything by default. You can focus on a specific process using -p PID. This profiles only that process, reducing noise and file size while focusing on what matters.',
+      he: 'במערכת עמוסה, perf record לוכד הכל כברירת מחדל. אפשר להתמקד בתהליך ספציפי עם -p PID. זה עושה פרופיילינג רק לתהליך הזה, מפחית רעש וגודל קובץ תוך התמקדות במה שחשוב.',
     },
     postLesson: {
       en: 'Filtering is essential in real-world profiling. Production systems run many processes — you need to focus perf on exactly what you are investigating.',
@@ -221,7 +221,7 @@ const levels: Level[] = [
         expected: 'perf record -p',
       },
     },
-    commandPalette: ['perf record -p', 'perf record -C', 'perf report --dsos', 'ps aux', 'grep'],
+    commandPalette: ['perf record -p', 'perf report', 'ps aux', 'grep'],
   },
   {
     id: '4-6',
@@ -231,11 +231,11 @@ const levels: Level[] = [
     isBoss: false,
     xp: 150,
     prerequisites: ['4-5'],
-    commandsIntroduced: ['perf record --call-graph dwarf', 'perf record --call-graph lbr'],
-    conceptsIntroduced: ['DWARF unwinding', 'LBR', 'frame pointers', 'accurate call stacks'],
+    commandsIntroduced: ['perf record --call-graph dwarf'],
+    conceptsIntroduced: ['DWARF unwinding', 'frame pointers', 'accurate call stacks'],
     preLesson: {
-      en: 'The default -g flag in perf uses frame pointers to unwind call stacks, but modern compilers often omit them. Important: frame pointer unwinding only works if the program was compiled with -fno-omit-frame-pointer (e.g., gcc -O2 -g -fno-omit-frame-pointer program.c). Without this flag, frame-pointer-based stacks will be broken. For accurate stacks without recompiling, use --call-graph dwarf (uses debug info, works everywhere but has more overhead) or --call-graph lbr (uses CPU hardware, very low overhead but limited depth). DWARF is the safest choice when you cannot recompile.',
-      he: 'הדגל -g הרגיל ב-perf משתמש ב-frame pointers כדי לפרום סטאקים, אבל קומפיילרים מודרניים לעיתים משמיטים אותם. חשוב: פריסה באמצעות frame pointers עובדת רק אם התוכנית קומפלה עם fno-omit-frame-pointer- (למשל gcc -O2 -g -fno-omit-frame-pointer program.c). בלי הדגל הזה, סטאקים מבוססי frame pointers יהיו שבורים. לסטאקים מדויקים בלי קומפילציה מחדש, השתמשו ב---call-graph dwarf (משתמש במידע ניפוי, עובד בכל מקום אבל עם יותר תקורה) או --call-graph lbr (משתמש בחומרת CPU, תקורה נמוכה מאוד אבל עומק מוגבל). DWARF הוא הבחירה הבטוחה ביותר כשלא ניתן לקמפל מחדש.',
+      en: 'The default -g flag in perf uses frame pointers to unwind call stacks, but modern compilers often omit them. Frame pointer unwinding only works if the program was compiled with -fno-omit-frame-pointer. For accurate stacks without recompiling, use --call-graph dwarf — it uses debug info and works everywhere. DWARF is the safest choice when you cannot recompile.',
+      he: 'הדגל -g הרגיל ב-perf משתמש ב-frame pointers כדי לפרום סטאקים, אבל קומפיילרים מודרניים לעיתים משמיטים אותם. פריסה באמצעות frame pointers עובדת רק אם התוכנית קומפלה עם fno-omit-frame-pointer-. לסטאקים מדויקים בלי קומפילציה מחדש, השתמשו ב---call-graph dwarf — הוא משתמש במידע ניפוי ועובד בכל מקום. DWARF הוא הבחירה הבטוחה ביותר כשלא ניתן לקמפל מחדש.',
     },
     postLesson: {
       en: 'Accurate call stacks are critical for understanding program behavior. When you see broken or incomplete stacks, switch to --call-graph dwarf for reliable results.',
@@ -265,7 +265,7 @@ const levels: Level[] = [
         expected: 'yes|כן',
       },
     },
-    commandPalette: ['perf record --call-graph dwarf', 'perf record --call-graph lbr', 'perf report', 'perf report --stdio', 'gcc -fno-omit-frame-pointer'],
+    commandPalette: ['perf record --call-graph dwarf', 'perf report', 'perf report --stdio', 'gcc -fno-omit-frame-pointer'],
   },
   {
     id: '4-7',

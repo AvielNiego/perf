@@ -16,7 +16,7 @@ export default function CommandPalette({
   const [showSpecial, setShowSpecial] = useState(false);
 
   return (
-    <div className="bg-[var(--bg-secondary)] border-t border-[var(--bg-tertiary)] px-2 py-1.5 space-y-1.5">
+    <div className="bg-[var(--bg-secondary)] border-t border-[var(--bg-tertiary)] px-2 py-1.5 pb-[max(0.375rem,env(safe-area-inset-bottom))] space-y-1.5">
       {/* Command buttons — single horizontal scrollable row */}
       <div className="flex gap-1.5 overflow-x-auto flex-nowrap scrollbar-hide">
         {commands.map((cmd) => (

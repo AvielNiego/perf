@@ -21,26 +21,57 @@ const levels: Level[] = [
     },
     quest: {
       description: {
-        en: 'Use the echo command to print the text "PerfQuest" to the terminal.',
-        he: 'השתמשו בפקודת echo כדי להדפיס את הטקסט "PerfQuest" לטרמינל.',
+        en: 'Try out three basic commands: whoami, pwd, and echo. Follow the steps below.',
+        he: 'נסו שלוש פקודות בסיסיות: whoami, pwd ו-echo. עקבו אחרי השלבים למטה.',
       },
       hints: [
         {
-          en: 'The echo command prints whatever you write after it.',
-          he: 'פקודת echo מדפיסה כל מה שכותבים אחריה.',
+          en: 'Each step tells you exactly which command to run. Type it and press Enter.',
+          he: 'כל שלב אומר בדיוק איזו פקודה להריץ. הקלידו אותה ולחצו Enter.',
         },
         {
-          en: 'Try typing: echo PerfQuest',
-          he: 'נסו להקליד: echo PerfQuest',
+          en: 'whoami shows your username, pwd shows your directory, echo prints text.',
+          he: 'whoami מראה את שם המשתמש, pwd מראה את התיקייה, echo מדפיס טקסט.',
         },
         {
-          en: 'Just type echo followed by a space and then PerfQuest, then press Enter.',
-          he: 'פשוט הקלידו echo ואז רווח ואז PerfQuest, ולחצו Enter.',
+          en: 'Just follow the instructions in each step — the commands are simple one-word entries.',
+          he: 'פשוט עקבו אחרי ההוראות בכל שלב — הפקודות הן פשוטות.',
         },
       ],
       validation: {
-        type: 'output_contains',
-        expected: 'PerfQuest',
+        type: 'multi_step',
+        steps: [
+          {
+            instruction: {
+              en: 'Run whoami. What is your username?',
+              he: 'הריצו whoami. מה שם המשתמש שלכם?',
+            },
+            validation: {
+              type: 'answer_match',
+              expected: 'student',
+            },
+          },
+          {
+            instruction: {
+              en: 'Run pwd. What directory are you in?',
+              he: 'הריצו pwd. באיזו תיקייה אתם נמצאים?',
+            },
+            validation: {
+              type: 'answer_match',
+              expected: '/home/student',
+            },
+          },
+          {
+            instruction: {
+              en: 'Run echo PerfQuest. What text appeared?',
+              he: 'הריצו echo PerfQuest. איזה טקסט הופיע?',
+            },
+            validation: {
+              type: 'answer_match',
+              expected: 'PerfQuest',
+            },
+          },
+        ],
       },
     },
     commandPalette: ['whoami', 'pwd', 'echo'],
@@ -97,20 +128,20 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['1-2'],
-    commandsIntroduced: ['grep', 'wc -l', 'sort', 'uniq', 'uniq -c', '|', '>'],
-    conceptsIntroduced: ['pipes', 'text filtering', 'deduplication', 'output redirection'],
+    commandsIntroduced: ['grep', 'wc -l', '|'],
+    conceptsIntroduced: ['pipes', 'text filtering'],
     preLesson: {
-      en: 'Pipes let you connect commands together using the | symbol. The output of one command becomes the input of the next. For example, cat file.txt | grep "error" finds lines containing "error". The command wc -l counts lines, sort arranges lines in order, and uniq removes consecutive duplicate lines. Use uniq -c to count how many times each line appears. The > symbol redirects output to a file instead of the screen, e.g., sort names.txt | uniq -c > counts.txt.',
-      he: 'צינורות מאפשרים לחבר פקודות יחד באמצעות הסימן |. הפלט של פקודה אחת הופך לקלט של הבאה. לדוגמה, cat file.txt | grep "error" מוצא שורות שמכילות "error". הפקודה wc -l סופרת שורות, sort מסדרת שורות לפי סדר, ו-uniq מסירה שורות כפולות עוקבות. השתמשו ב-uniq -c כדי לספור כמה פעמים כל שורה מופיעה. הסימן > מפנה פלט לקובץ במקום למסך, למשל sort names.txt | uniq -c > counts.txt.',
+      en: 'Pipes let you connect commands together using the | symbol. The output of one command becomes the input of the next. For example, cat file.txt | grep "error" finds lines containing "error". The command wc -l counts lines. Combining grep with wc -l lets you count how many lines match a pattern.',
+      he: 'צינורות מאפשרים לחבר פקודות יחד באמצעות הסימן |. הפלט של פקודה אחת הופך לקלט של הבאה. לדוגמה, cat file.txt | grep "error" מוצא שורות שמכילות "error". הפקודה wc -l סופרת שורות. שילוב grep עם wc -l מאפשר לספור כמה שורות מתאימות לדפוס.',
     },
     postLesson: {
-      en: 'Pipes are one of the most powerful ideas in Linux. Chaining simple commands together lets you build complex analysis tools on the fly.',
-      he: 'צינורות הם אחד הרעיונות החזקים ביותר בלינוקס. שרשור פקודות פשוטות מאפשר לבנות כלי ניתוח מורכבים תוך כדי תנועה.',
+      en: 'Pipes are one of the most powerful ideas in Linux. You just chained grep and wc -l to count matching lines — this pattern is used constantly in performance analysis.',
+      he: 'צינורות הם אחד הרעיונות החזקים ביותר בלינוקס. זה עתה שרשרתם grep ו-wc -l כדי לספור שורות מתאימות — דפוס זה משמש כל הזמן בניתוח ביצועים.',
     },
     quest: {
       description: {
-        en: 'A log file called app.log is in your directory. Use pipes to count how many lines contain the word "ERROR". Then use grep, cut, sort, uniq -c to find which module has the most errors, and redirect the result to a file called error_counts.txt. Enter the number of ERROR lines.',
-        he: 'קובץ לוג בשם app.log נמצא בתיקייה שלכם. השתמשו בצינורות כדי לספור כמה שורות מכילות את המילה "ERROR". אחר כך השתמשו ב-grep, cut, sort, uniq -c כדי למצוא לאיזה מודול יש הכי הרבה שגיאות, והפנו את התוצאה לקובץ בשם error_counts.txt. הזינו את מספר שורות ה-ERROR.',
+        en: 'A log file called app.log is in your directory. Use grep and wc -l with a pipe to count how many lines contain the word "ERROR". Enter the number.',
+        he: 'קובץ לוג בשם app.log נמצא בתיקייה שלכם. השתמשו ב-grep ו-wc -l עם צינור כדי לספור כמה שורות מכילות את המילה "ERROR". הזינו את המספר.',
       },
       hints: [
         {
@@ -131,7 +162,7 @@ const levels: Level[] = [
         expected: '42',
       },
     },
-    commandPalette: ['grep', 'wc -l', 'sort', 'uniq', 'uniq -c', 'cat', '|', '>'],
+    commandPalette: ['grep', 'wc -l', 'cat', '|'],
   },
   {
     id: '1-4',
@@ -141,16 +172,16 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['1-3'],
-    commandsIntroduced: ['find', 'wc', 'cut'],
+    commandsIntroduced: ['find', 'wc'],
     conceptsIntroduced: ['file search', 'timed challenges'],
     timeLimitSeconds: 90,
     preLesson: {
-      en: 'The find command searches for files by name or type. For example, find . -name "*.txt" finds all text files. The cut command extracts parts of each line — cut -d":" -f1 splits by colon and takes the first field. This is a timed challenge — work quickly!',
-      he: 'הפקודה find מחפשת קבצים לפי שם או סוג. לדוגמה, find . -name "*.txt" מוצאת את כל קבצי הטקסט. הפקודה cut מחלצת חלקים מכל שורה — cut -d":" -f1 מפצלת לפי נקודתיים ולוקחת את השדה הראשון. זהו אתגר מתוזמן — עבדו מהר!',
+      en: 'The find command searches for files by name or type. For example, find . -name "*.txt" finds all text files. Pipe the results to wc -l to count how many files match. This is a timed challenge — work quickly!',
+      he: 'הפקודה find מחפשת קבצים לפי שם או סוג. לדוגמה, find . -name "*.txt" מוצאת את כל קבצי הטקסט. העבירו את התוצאות ל-wc -l כדי לספור כמה קבצים מתאימים. זהו אתגר מתוזמן — עבדו מהר!',
     },
     postLesson: {
-      en: 'Nice work under pressure! The find and cut commands are essential for navigating and parsing data in performance investigations.',
-      he: 'עבודה יפה תחת לחץ! הפקודות find ו-cut חיוניות לניווט ולפירוק נתונים בחקירות ביצועים.',
+      en: 'Nice work under pressure! The find command is essential for locating files in performance investigations.',
+      he: 'עבודה יפה תחת לחץ! הפקודה find חיונית לאיתור קבצים בחקירות ביצועים.',
     },
     quest: {
       description: {
@@ -176,7 +207,7 @@ const levels: Level[] = [
         expected: '7',
       },
     },
-    commandPalette: ['find', 'wc', 'wc -l', 'cut', 'ls', '|'],
+    commandPalette: ['find', 'wc', 'wc -l', 'ls', '|'],
   },
   {
     id: '1-5',

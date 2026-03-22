@@ -54,11 +54,11 @@ const levels: Level[] = [
     xp: 150,
     badge: { id: 'scheduler-whisperer', name: { en: 'Scheduler Whisperer', he: 'לוחש למתזמן' }, icon: '🗓️' },
     prerequisites: ['5-1'],
-    commandsIntroduced: ['perf sched record', 'perf sched latency', 'perf sched map'],
-    conceptsIntroduced: ['scheduling latency', 'CPU migration', 'wait time', 'run time'],
+    commandsIntroduced: ['perf sched record', 'perf sched latency'],
+    conceptsIntroduced: ['scheduling latency', 'wait time', 'run time'],
     preLesson: {
-      en: 'perf sched records scheduling events — when processes are put to sleep, woken up, or moved between CPUs. After recording with perf sched record, use perf sched latency to see how long each process waited before getting CPU time. perf sched map shows a visual timeline of which process ran on which CPU.',
-      he: 'perf sched מקליט אירועי תזמון — מתי תהליכים מושהים, מתעוררים או עוברים בין מעבדים. אחרי הקלטה עם perf sched record, השתמשו ב-perf sched latency כדי לראות כמה זמן כל תהליך חיכה לפני שקיבל זמן CPU. perf sched map מראה ציר זמן ויזואלי של איזה תהליך רץ על איזה CPU.',
+      en: 'perf sched records scheduling events — when processes are put to sleep, woken up, or moved between CPUs. After recording with perf sched record, use perf sched latency to see how long each process waited before getting CPU time.',
+      he: 'perf sched מקליט אירועי תזמון — מתי תהליכים מושהים, מתעוררים או עוברים בין מעבדים. אחרי הקלטה עם perf sched record, השתמשו ב-perf sched latency כדי לראות כמה זמן כל תהליך חיכה לפני שקיבל זמן CPU.',
     },
     postLesson: {
       en: 'perf sched reveals the invisible scheduling decisions of the OS. High scheduling latency means your program is being delayed by other tasks or poor scheduling.',
@@ -88,7 +88,7 @@ const levels: Level[] = [
         expected: 'perf sched latency',
       },
     },
-    commandPalette: ['perf sched record', 'perf sched latency', 'perf sched map', 'perf sched timehist'],
+    commandPalette: ['perf sched record', 'perf sched latency', 'perf sched timehist'],
   },
   {
     id: '5-3',

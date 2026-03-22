@@ -9,7 +9,7 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['1-5'],
-    commandsIntroduced: ['ps aux', 'ps -ef'],
+    commandsIntroduced: ['ps aux'],
     conceptsIntroduced: ['processes', 'PID', 'PPID'],
     preLesson: {
       en: 'Every program running on your computer is a process. Each process has a unique number called PID (Process ID) and a parent process called PPID. The command ps aux lists all running processes with details like CPU usage and memory.',
@@ -43,7 +43,7 @@ const levels: Level[] = [
         expected: '1337',
       },
     },
-    commandPalette: ['ps aux', 'ps -ef', 'head', 'sort', '|'],
+    commandPalette: ['ps aux', 'head', 'sort', '|'],
   },
   {
     id: '2-2',
@@ -53,7 +53,7 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['2-1'],
-    commandsIntroduced: ['ps -T', 'ps -eLf'],
+    commandsIntroduced: ['ps -T'],
     conceptsIntroduced: ['threads', 'TID', 'multithreading'],
     preLesson: {
       en: 'A process can have multiple threads — lightweight workers that share the same memory. The command ps -T -p <PID> shows all threads of a specific process. Each thread has its own TID (Thread ID). Multi-threaded programs are common in performance work.',
@@ -87,7 +87,7 @@ const levels: Level[] = [
         expected: '4',
       },
     },
-    commandPalette: ['ps -T', 'ps -eLf', 'wc -l', 'tail', '|'],
+    commandPalette: ['ps -T', 'wc -l', 'tail', '|'],
   },
   {
     id: '2-3',
@@ -141,7 +141,7 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['2-3'],
-    commandsIntroduced: ['free -h', 'cat /proc/meminfo'],
+    commandsIntroduced: ['free -h'],
     conceptsIntroduced: ['RAM', 'memory hierarchy', 'cache levels'],
     preLesson: {
       en: 'Your computer has a memory hierarchy: CPU registers are fastest, then L1/L2/L3 caches, then RAM, then disk. The command free -h shows how much memory is used and available. Understanding this hierarchy is key to performance — accessing L1 cache is 100x faster than RAM!',
@@ -175,7 +175,7 @@ const levels: Level[] = [
         expected: 'free -h',
       },
     },
-    commandPalette: ['free -h', 'cat /proc/meminfo', 'lscpu'],
+    commandPalette: ['free -h', 'lscpu'],
   },
   {
     id: '2-5',
@@ -185,7 +185,7 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['2-4'],
-    commandsIntroduced: ['nproc', 'cat /proc/stat', 'vmstat'],
+    commandsIntroduced: ['nproc', 'vmstat'],
     conceptsIntroduced: ['scheduler', 'context switches', 'CPU cores'],
     preLesson: {
       en: 'The Linux scheduler decides which process runs on which CPU core and for how long. The command nproc tells you how many CPU cores you have. Context switches happen when the scheduler swaps one process for another — they have a performance cost. You can see system-wide context switches with vmstat 1.',
@@ -219,7 +219,7 @@ const levels: Level[] = [
         expected: 'nproc',
       },
     },
-    commandPalette: ['nproc', 'vmstat', 'cat /proc/stat', '|'],
+    commandPalette: ['nproc', 'vmstat', '|'],
   },
   {
     id: '2-6',
@@ -229,7 +229,7 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['2-5'],
-    commandsIntroduced: ['strace -c', 'strace -p'],
+    commandsIntroduced: ['strace -c'],
     conceptsIntroduced: ['system calls', 'user space vs kernel space'],
     preLesson: {
       en: 'When a program needs to do something like read a file or send data over the network, it asks the kernel through a system call (syscall). The command strace -c <command> shows a summary of all syscalls a program makes and how much time each takes. Think of syscalls as gates between your program and the kernel.',
@@ -263,7 +263,7 @@ const levels: Level[] = [
         expected: 'strace -c',
       },
     },
-    commandPalette: ['strace -c', 'strace -p', 'ls', '|'],
+    commandPalette: ['strace -c', 'ls', '|'],
   },
   {
     id: '2-7',
@@ -273,7 +273,7 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['2-6'],
-    commandsIntroduced: ['gcc -g', 'gcc -O2', 'gcc -fno-omit-frame-pointer', 'file', 'readelf -S'],
+    commandsIntroduced: ['gcc -g', 'gcc -O2', 'gcc -fno-omit-frame-pointer', 'file'],
     conceptsIntroduced: ['debug symbols', 'compilation flags', 'symbol tables', 'compiler (translates source to machine code)'],
     preLesson: {
       en: 'A compiler like gcc translates your human-readable C code into machine instructions the CPU can execute. When you compile a C program for profiling, you should use BOTH -O2 and -g together: gcc -O2 -g program.c. The -O2 flag tells the compiler to optimize the code (so you profile realistic performance), and -g includes debug symbols — a map connecting machine code back to your source lines and function names. Without -g, perf can only show you hex addresses instead of readable function names. Without -O2, the code runs slower than it would in production.',
@@ -307,7 +307,7 @@ const levels: Level[] = [
         expected: 'debug_info',
       },
     },
-    commandPalette: ['gcc', 'gcc -g', 'gcc -O2', 'gcc -O2 -g', 'gcc -fno-omit-frame-pointer', 'file', 'readelf -S', 'ls'],
+    commandPalette: ['gcc', 'gcc -g', 'gcc -O2', 'gcc -O2 -g', 'gcc -fno-omit-frame-pointer', 'file', 'ls'],
   },
   {
     id: '2-8',
