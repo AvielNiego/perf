@@ -213,13 +213,13 @@ export default function GameClient() {
         <QuestPanel quest={level.quest} isBoss={level.isBoss} currentHint={currentHint} hintsUsed={hintsUsed} maxHints={level.quest.hints.length} onUseHint={handleUseHint} timeLimitSeconds={level.timeLimitSeconds} elapsedSeconds={elapsedSeconds} questStepIndex={questStepIndex} onSubmitAnswer={handleSubmitAnswer} wrongAnswer={wrongAnswer} />
       )}
 
-      <div className="flex-1 min-h-0">
-        <Terminal wsUrl={terminalWsUrl} insertTextRef={insertTextRef} />
-      </div>
-
       {phase === 'playing' && (
         <CommandPalette commands={level.commandPalette} onInsertText={handleInsertText} />
       )}
+
+      <div className="flex-1 min-h-0">
+        <Terminal wsUrl={terminalWsUrl} insertTextRef={insertTextRef} />
+      </div>
     </div>
   );
 }
