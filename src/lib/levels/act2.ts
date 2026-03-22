@@ -43,7 +43,7 @@ const levels: Level[] = [
         expected: '1337',
       },
     },
-    commandPalette: ['ps aux', 'head', 'sort', '|'],
+    commandPalette: ['ps aux', 'head', '|'],
   },
   {
     id: '2-2',
@@ -97,11 +97,11 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['2-2'],
-    commandsIntroduced: ['lscpu', 'time'],
+    commandsIntroduced: ['lscpu', 'time', 'sleep'],
     conceptsIntroduced: ['CPU frequency', 'cycles', 'wall clock vs CPU time'],
     preLesson: {
-      en: 'Your CPU has a clock that ticks billions of times per second — each tick is a cycle. The command lscpu shows your CPU details including its frequency. The time command measures how long a program runs, showing real (wall clock), user (CPU), and sys (kernel) time.',
-      he: 'למעבד שלכם יש שעון שמתקתק מיליארדי פעמים בשנייה — כל תקתוק הוא מחזור. הפקודה lscpu מראה את פרטי המעבד כולל התדר שלו. הפקודה time מודדת כמה זמן תוכנית רצה, ומציגה זמן אמיתי, זמן משתמש וזמן מערכת.',
+      en: 'Your CPU has a clock that ticks billions of times per second — each tick is a cycle. The command lscpu shows your CPU details including its frequency. The time command measures how long a program runs, showing real (wall clock), user (CPU), and sys (kernel) time. sleep N pauses for N seconds — useful for timing experiments.',
+      he: 'למעבד שלכם יש שעון שמתקתק מיליארדי פעמים בשנייה — כל תקתוק הוא מחזור. הפקודה lscpu מראה את פרטי המעבד כולל התדר שלו. הפקודה time מודדת כמה זמן תוכנית רצה, ומציגה זמן אמיתי, זמן משתמש וזמן מערכת. sleep N משהה את הביצוע למשך N שניות — שימושי לניסויי תזמון.',
     },
     postLesson: {
       en: 'Now you understand CPU cycles and the difference between wall time and CPU time. If user+sys is less than real, the program was probably waiting for something.',
@@ -329,21 +329,21 @@ const levels: Level[] = [
     },
     quest: {
       description: {
-        en: 'Run both perf stat ./demo_app and perf record ./demo_app on the provided demo program. Observe the difference: perf stat shows event totals, perf record captures samples for later analysis. Which method gives you total event counts — counting or sampling?',
-        he: 'הריצו גם perf stat ./demo_app וגם perf record ./demo_app על תוכנית demo שסופקה. שימו לב להבדל: perf stat מראה סכומי אירועים, perf record לוכד דגימות לניתוח מאוחר יותר. איזו שיטה נותנת סכומי אירועים — ספירה או דגימה?',
+        en: 'Based on what you learned in the lesson, which method would you use to find the TOTAL number of cache misses in a program — counting or sampling?',
+        he: 'בהתבסס על מה שלמדתם בשיעור, באיזו שיטה הייתם משתמשים כדי למצוא את המספר הכולל של החמצות מטמון בתוכנית — ספירה או דגימה?',
       },
       hints: [
         {
-          en: 'Run perf stat ./demo_app first and observe the event totals.',
-          he: 'הריצו perf stat ./demo_app קודם וצפו בסכומי האירועים.',
+          en: 'Counting tracks every single event and gives exact totals. Sampling checks periodically and gives a statistical picture.',
+          he: 'ספירה עוקבת אחרי כל אירוע בודד ונותנת סכומים מדויקים. דגימה בודקת מדי פעם ונותנת תמונה סטטיסטית.',
         },
         {
-          en: 'Then run perf record ./demo_app and perf report to see sampled data.',
-          he: 'אחר כך הריצו perf record ./demo_app ו-perf report כדי לראות נתונים דגומים.',
+          en: 'If you need a total count of events (like total cache misses), you want the method that counts every event.',
+          he: 'אם צריכים ספירה כוללת של אירועים (כמו סך החמצות מטמון), רוצים את השיטה שסופרת כל אירוע.',
         },
         {
-          en: 'perf stat uses counting — it gives totals. perf record uses sampling.',
-          he: 'perf stat משתמש בספירה — הוא נותן סכומים. perf record משתמש בדגימה.',
+          en: 'Counting gives totals. Sampling gives a statistical picture of where time is spent.',
+          he: 'ספירה נותנת סכומים. דגימה נותנת תמונה סטטיסטית של איפה מושקע הזמן.',
         },
       ],
       validation: {
@@ -351,7 +351,7 @@ const levels: Level[] = [
         expected: 'counting|ספירה',
       },
     },
-    commandPalette: ['perf stat', 'perf record', 'perf report'],
+    commandPalette: [],
   },
   {
     id: '2-9',

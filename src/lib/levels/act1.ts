@@ -128,11 +128,11 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['1-2'],
-    commandsIntroduced: ['grep', 'wc -l', '|'],
+    commandsIntroduced: ['grep', 'wc -l', '|', 'sort', 'uniq', 'uniq -c'],
     conceptsIntroduced: ['pipes', 'text filtering'],
     preLesson: {
-      en: 'Pipes let you connect commands together using the | symbol. The output of one command becomes the input of the next. For example, cat file.txt | grep "error" finds lines containing "error". The command wc -l counts lines. Combining grep with wc -l lets you count how many lines match a pattern.',
-      he: 'צינורות מאפשרים לחבר פקודות יחד באמצעות הסימן |. הפלט של פקודה אחת הופך לקלט של הבאה. לדוגמה, cat file.txt | grep "error" מוצא שורות שמכילות "error". הפקודה wc -l סופרת שורות. שילוב grep עם wc -l מאפשר לספור כמה שורות מתאימות לדפוס.',
+      en: 'Pipes let you connect commands together using the | symbol. The output of one command becomes the input of the next. For example, cat file.txt | grep "error" finds lines containing "error". The command wc -l counts lines. Combining grep with wc -l lets you count how many lines match a pattern. The sort command sorts lines alphabetically, uniq removes consecutive duplicates, and uniq -c counts how many times each line appears.',
+      he: 'צינורות מאפשרים לחבר פקודות יחד באמצעות הסימן |. הפלט של פקודה אחת הופך לקלט של הבאה. לדוגמה, cat file.txt | grep "error" מוצא שורות שמכילות "error". הפקודה wc -l סופרת שורות. שילוב grep עם wc -l מאפשר לספור כמה שורות מתאימות לדפוס. הפקודה sort ממיינת שורות לפי סדר אלפביתי, uniq מסירה כפילויות רצופות, ו-uniq -c סופרת כמה פעמים כל שורה מופיעה.',
     },
     postLesson: {
       en: 'Pipes are one of the most powerful ideas in Linux. You just chained grep and wc -l to count matching lines — this pattern is used constantly in performance analysis.',
@@ -172,12 +172,12 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['1-3'],
-    commandsIntroduced: ['find', 'wc'],
+    commandsIntroduced: ['find', 'wc', 'head', 'tail', 'cut'],
     conceptsIntroduced: ['file search', 'timed challenges'],
     timeLimitSeconds: 90,
     preLesson: {
-      en: 'The find command searches for files by name or type. For example, find . -name "*.txt" finds all text files. Pipe the results to wc -l to count how many files match. This is a timed challenge — work quickly!',
-      he: 'הפקודה find מחפשת קבצים לפי שם או סוג. לדוגמה, find . -name "*.txt" מוצאת את כל קבצי הטקסט. העבירו את התוצאות ל-wc -l כדי לספור כמה קבצים מתאימים. זהו אתגר מתוזמן — עבדו מהר!',
+      en: 'The find command searches for files by name or type. For example, find . -name "*.txt" finds all text files. Pipe the results to wc -l to count how many files match. Also useful: head shows the first lines of output, tail shows the last lines, and cut extracts specific columns. This is a timed challenge — work quickly!',
+      he: 'הפקודה find מחפשת קבצים לפי שם או סוג. לדוגמה, find . -name "*.txt" מוצאת את כל קבצי הטקסט. העבירו את התוצאות ל-wc -l כדי לספור כמה קבצים מתאימים. כלים שימושיים נוספים: head מציגה את השורות הראשונות, tail מציגה את האחרונות, ו-cut מחלצת עמודות ספציפיות. זהו אתגר מתוזמן — עבדו מהר!',
     },
     postLesson: {
       en: 'Nice work under pressure! The find command is essential for locating files in performance investigations.',

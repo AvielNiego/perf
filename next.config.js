@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
+const isLocal = process.env.LOCAL_TEST === '1';
 const nextConfig = {
   reactStrictMode: true,
   output: 'export',
-  basePath: '/perf',
-  assetPrefix: '/perf/',
+  ...(isLocal ? {} : { basePath: '/perf', assetPrefix: '/perf/' }),
   images: {
     unoptimized: true,
   },

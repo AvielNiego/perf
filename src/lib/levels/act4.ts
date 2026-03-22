@@ -55,11 +55,11 @@ const levels: Level[] = [
     xp: 150,
     badge: { id: 'flame-tamer', name: { en: 'Flame Tamer', he: 'מאלף להבות' }, icon: '🔥' },
     prerequisites: ['4-1'],
-    commandsIntroduced: ['perf script', 'stackcollapse-perf.pl', 'flamegraph.pl'],
+    commandsIntroduced: ['perf script', 'stackcollapse-perf.pl', 'flamegraph.pl', '>'],
     conceptsIntroduced: ['flame graphs', 'stack visualization', 'call hierarchy width'],
     preLesson: {
-      en: 'Flame graphs are a visual way to see where CPU time is spent. They are generated from perf data in three steps: perf script dumps raw samples, stackcollapse-perf.pl folds them into stacks, and flamegraph.pl creates an interactive SVG. Each box\'s width shows how much CPU time that function used. Wider means more time.',
-      he: 'גרפי להבה הם דרך ויזואלית לראות איפה זמן CPU מושקע. הם נוצרים מנתוני perf בשלושה צעדים: perf script מוציא דגימות גולמיות, stackcollapse-perf.pl מקפל אותן לסטאקים, ו-flamegraph.pl יוצר SVG אינטראקטיבי. הרוחב של כל תיבה מראה כמה זמן CPU הפונקציה השתמשה. רחב יותר אומר יותר זמן.',
+      en: 'Flame graphs are a visual way to see where CPU time is spent. They are generated from perf data in three steps: perf script dumps raw samples, stackcollapse-perf.pl folds them into stacks, and flamegraph.pl creates an interactive SVG. The > operator redirects command output to a file instead of the screen. Each box\'s width shows how much CPU time that function used. Wider means more time.',
+      he: 'גרפי להבה הם דרך ויזואלית לראות איפה זמן CPU מושקע. הם נוצרים מנתוני perf בשלושה צעדים: perf script מוציא דגימות גולמיות, stackcollapse-perf.pl מקפל אותן לסטאקים, ו-flamegraph.pl יוצר SVG אינטראקטיבי. האופרטור > מפנה את פלט הפקודה לקובץ במקום למסך. הרוחב של כל תיבה מראה כמה זמן CPU הפונקציה השתמשה. רחב יותר אומר יותר זמן.',
     },
     postLesson: {
       en: 'You created your first flame graph! Flame graphs are one of the most popular tools in performance engineering. They make complex call stacks easy to understand at a glance.',

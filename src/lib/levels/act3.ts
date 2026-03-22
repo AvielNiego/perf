@@ -9,11 +9,11 @@ const levels: Level[] = [
     isBoss: false,
     xp: 100,
     prerequisites: ['2-9'],
-    commandsIntroduced: ['perf list'],
+    commandsIntroduced: ['perf list', 'sudo'],
     conceptsIntroduced: ['hardware events', 'software events', 'tracepoints'],
     preLesson: {
-      en: 'perf can measure many different events happening inside your CPU and operating system. The command perf list shows all available events. Events are grouped into hardware events (like CPU cycles and cache misses), software events (like page faults), and tracepoints (kernel-level hooks). Note: perf may need permissions to access hardware counters. Run cat /proc/sys/kernel/perf_event_paranoid to check the current setting — a value of 2 or higher restricts perf to your own processes, and higher values may block hardware events entirely. If you get permission errors, ask your admin to lower this value or use sudo.',
-      he: 'perf יכול למדוד הרבה אירועים שונים שקורים בתוך המעבד ומערכת ההפעלה. הפקודה perf list מציגה את כל האירועים הזמינים. אירועים מחולקים לאירועי חומרה (כמו מחזורי CPU והחמצות מטמון), אירועי תוכנה (כמו page faults) ו-tracepoints (נקודות מעקב ברמת הקרנל). שימו לב: ייתכן ש-perf צריך הרשאות כדי לגשת למוני חומרה. הריצו cat /proc/sys/kernel/perf_event_paranoid כדי לבדוק את ההגדרה הנוכחית — ערך של 2 או יותר מגביל את perf לתהליכים שלכם בלבד, וערכים גבוהים יותר עלולים לחסום אירועי חומרה לגמרי. אם מקבלים שגיאות הרשאה, בקשו מהמנהל להוריד את הערך או השתמשו ב-sudo.',
+      en: 'perf can measure many different events happening inside your CPU and operating system. The command perf list shows all available events. Events are grouped into hardware events (like CPU cycles and cache misses), software events (like page faults), and tracepoints (kernel-level hooks). Some perf commands need elevated privileges — use sudo before the command to run it with administrator rights. Note: perf may need permissions to access hardware counters. Run cat /proc/sys/kernel/perf_event_paranoid to check the current setting — a value of 2 or higher restricts perf to your own processes, and higher values may block hardware events entirely. If you get permission errors, ask your admin to lower this value or use sudo.',
+      he: 'perf יכול למדוד הרבה אירועים שונים שקורים בתוך המעבד ומערכת ההפעלה. הפקודה perf list מציגה את כל האירועים הזמינים. אירועים מחולקים לאירועי חומרה (כמו מחזורי CPU והחמצות מטמון), אירועי תוכנה (כמו page faults) ו-tracepoints (נקודות מעקב ברמת הקרנל). חלק מפקודות perf צריכות הרשאות מוגברות — השתמשו ב-sudo לפני הפקודה כדי להריץ אותה עם הרשאות מנהל. שימו לב: ייתכן ש-perf צריך הרשאות כדי לגשת למוני חומרה. הריצו cat /proc/sys/kernel/perf_event_paranoid כדי לבדוק את ההגדרה הנוכחית — ערך של 2 או יותר מגביל את perf לתהליכים שלכם בלבד, וערכים גבוהים יותר עלולים לחסום אירועי חומרה לגמרי. אם מקבלים שגיאות הרשאה, בקשו מהמנהל להוריד את הערך או השתמשו ב-sudo.',
     },
     postLesson: {
       en: 'perf list is your event catalog. Whenever you need to measure something specific, check this list first to find the right event name.',
@@ -158,8 +158,8 @@ const levels: Level[] = [
       },
       hints: [
         {
-          en: 'Start the stress_test in the background, then run perf top.',
-          he: 'הפעילו את stress_test ברקע ואז הריצו perf top.',
+          en: 'The stress_test process is already running on the server. Just run perf top to see it.',
+          he: 'תהליך stress_test כבר רץ על השרת. פשוט הריצו perf top כדי לראות אותו.',
         },
         {
           en: 'The function at the top of the perf top display uses the most CPU.',
