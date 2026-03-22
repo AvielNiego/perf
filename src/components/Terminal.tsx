@@ -211,7 +211,38 @@ function simulateCommand(cmd: string): string {
       if (parts[1] === '.welcome_note') {
         return 'Welcome to PerfQuest! Your secret code is: PERF2024';
       }
+      if (parts[1] === 'kingdom_registry.txt') {
+        return 'Alon,knight,25\nShira,mage,30\nYael,farmer,22\nOren,knight,28\nNoa,healer,35\n... (50 citizens total)';
+      }
       return `cat: ${parts[1] || ''}: simulated file`;
+    case 'grep':
+      return `\x1b[33m[demo]\x1b[0m grep output simulated — connect a real server for actual filtering`;
+    case 'wc':
+      return '42';
+    case 'find':
+      return './logs/server.log\n./logs/app.log';
+    case 'sort':
+      return `\x1b[33m[demo]\x1b[0m sort output simulated`;
+    case 'head':
+      return `\x1b[33m[demo]\x1b[0m head output simulated`;
+    case 'tail':
+      return `\x1b[33m[demo]\x1b[0m tail output simulated`;
+    case 'ps':
+      return 'USER       PID  %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND\nstudent   1337  2.5  0.1  12345  6789 ?        S    10:00   0:05 kingdom_server\nstudent   1338  0.5  0.0   4567  1234 ?        S    10:00   0:01 worker\nroot         1  0.0  0.0   1234   567 ?        Ss   09:00   0:00 /sbin/init';
+    case 'free':
+      return '              total        used        free      shared  buff/cache   available\nMem:          7.7Gi       2.1Gi       3.8Gi       256Mi       1.8Gi       5.1Gi\nSwap:         2.0Gi          0B       2.0Gi';
+    case 'lscpu':
+      return 'Architecture:          x86_64\nCPU(s):                4\nModel name:            Intel Core i7-9750H\nCPU MHz:               2600.000\nL1d cache:             32K\nL1i cache:             32K\nL2 cache:              256K\nL3 cache:              12288K';
+    case 'strace':
+      return `\x1b[33m[demo]\x1b[0m strace output simulated — connect a real server`;
+    case 'file':
+      return `${parts[1] || 'a.out'}: ELF 64-bit LSB executable, x86-64, with debug_info`;
+    case 'gcc':
+      return `\x1b[33m[demo]\x1b[0m compilation simulated — connect a real server`;
+    case 'time':
+      return 'real\t0m2.345s\nuser\t0m2.100s\nsys\t0m0.050s';
+    case 'perf':
+      return `\x1b[33m[demo]\x1b[0m perf requires a real Linux server — connect one to use perf commands`;
     case 'hostname':
       return 'perfquest-server';
     case 'date':

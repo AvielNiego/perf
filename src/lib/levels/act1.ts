@@ -96,8 +96,8 @@ const levels: Level[] = [
     },
     quest: {
       description: {
-        en: 'A hidden file is waiting in the quest directory. Find it and read its contents using cat. What is the secret word inside?',
-        he: 'קובץ נסתר מחכה בתיקיית המשימה. מצאו אותו וקראו את תוכנו באמצעות cat. מה המילה הסודית בפנים?',
+        en: 'A hidden file called .welcome_note is waiting in your home directory. Find it using ls -a, read it with cat, and enter the secret code you find inside.',
+        he: 'קובץ נסתר בשם welcome_note. מחכה בתיקיית הבית שלכם. מצאו אותו באמצעות ls -a, קראו אותו עם cat, והכניסו את הקוד הסודי שמצאתם בפנים.',
       },
       hints: [
         {
@@ -105,17 +105,17 @@ const levels: Level[] = [
           he: 'השתמשו ב-ls -a כדי לראות קבצים נסתרים (קבצים שמתחילים בנקודה).',
         },
         {
-          en: 'Look for a file named .secret in the listing.',
-          he: 'חפשו קובץ בשם .secret ברשימה.',
+          en: 'Look for a file named .welcome_note in the listing.',
+          he: 'חפשו קובץ בשם welcome_note. ברשימה.',
         },
         {
-          en: 'Run: cat .secret to see what is inside the hidden file.',
-          he: 'הריצו: cat .secret כדי לראות מה בתוך הקובץ הנסתר.',
+          en: 'Run: cat .welcome_note — the secret code is at the end of the message.',
+          he: 'הריצו: cat .welcome_note — הקוד הסודי נמצא בסוף ההודעה.',
         },
       ],
       validation: {
         type: 'answer_match',
-        expected: 'performance',
+        expected: 'PERF2024|perf2024',
       },
     },
     commandPalette: ['ls', 'ls -a', 'cat'],
