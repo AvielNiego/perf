@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
+const isGitHubPages = process.env.DEPLOY_TARGET === 'github';
 const nextConfig = {
   reactStrictMode: true,
   output: 'export',
-  basePath: '/perf',
-  assetPrefix: '/perf/',
+  ...(isGitHubPages ? { basePath: '/perf', assetPrefix: '/perf/' } : {}),
   images: {
     unoptimized: true,
   },

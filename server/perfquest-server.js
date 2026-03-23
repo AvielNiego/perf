@@ -8,10 +8,11 @@
 
 const http = require('http');
 const { WebSocketServer } = require('ws');
-const { spawn } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+let pty;
+try { pty = require('node-pty'); } catch { pty = null; }
 
 const PORT = process.env.PORT || 8080;
 const HOME = os.homedir();
@@ -181,47 +182,47 @@ wss.on('connection', (ws, req) => {
   const sessionDir = setupLevelDir(levelId);
   console.log(`  Session dir: ${sessionDir}`);
 
-  // Spawn a bash shell in the clean directory
-  const shell = spawn('bash', ['--norc', '-i'], {
+  // Spawn a bash shell with a real PTY
+  const shellEnv = {
+    ...process.env,
+    HOME: sessionDir,
+    PS1: '\\[\\033[1;32m\\]student@perfquest\\[\\033[0m\\]:\\[\\033[1;34m\\]\\w\\[\\033[0m\\]$ ',
+    PATH: `${sessionDir}/bin:${FLAMEGRAPH_DIR}:${process.env.PATH}`,
+    TERM: 'xterm-256color',
+    LEVEL: levelId,
+  };
+
+  const shell = pty.spawn('bash', ['--norc'], {
+    name: 'xterm-256color',
+    cols: 80,
+    rows: 24,
     cwd: sessionDir,
-    env: {
-      ...process.env,
-      HOME: sessionDir,
-      PS1: '\\[\\033[1;32m\\]student@perfquest\\[\\033[0m\\]:\\[\\033[1;34m\\]\\w\\[\\033[0m\\]$ ',
-      PATH: `${sessionDir}/bin:${FLAMEGRAPH_DIR}:${process.env.PATH}`,
-      TERM: 'xterm-256color',
-      LEVEL: levelId,
-    },
+    env: shellEnv,
   });
 
-  // Shell → WebSocket
-  shell.stdout.on('data', (data) => {
-    if (ws.readyState === 1) ws.send(data.toString('utf-8'));
-  });
-  shell.stderr.on('data', (data) => {
-    if (ws.readyState === 1) ws.send(data.toString('utf-8'));
+  // PTY → WebSocket
+  shell.onData((data) => {
+    if (ws.readyState === 1) ws.send(data);
   });
 
-  shell.on('close', () => {
+  shell.onExit(() => {
     console.log(`  Shell closed for level ${levelId}`);
     cleanupDir(sessionDir);
     ws.close();
   });
 
-  // WebSocket → Shell
+  // WebSocket → PTY
   ws.on('message', (data) => {
     const msg = data.toString();
     try {
       const parsed = JSON.parse(msg);
-      if (parsed.type === 'resize' && shell.stdin.writable) {
-        // Ignore resize for now (pty would handle this)
+      if (parsed.type === 'resize') {
+        shell.resize(parsed.cols, parsed.rows);
         return;
       }
     } catch {}
 
-    if (shell.stdin.writable) {
-      shell.stdin.write(msg);
-    }
+    shell.write(msg);
   });
 
   ws.on('close', () => {

@@ -36,7 +36,7 @@ export default function GameClient() {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [terminalWsUrl] = useState<string | null>(
     typeof window !== 'undefined'
-      ? (process.env.NEXT_PUBLIC_TERMINAL_WS_URL || `ws://151.145.81.195:8080/level/${levelId}`)
+      ? (process.env.NEXT_PUBLIC_TERMINAL_WS_URL || `ws://${window.location.host}/ws/level/${levelId}`)
       : null
   );
   const [newBadges, setNewBadges] = useState<{ name: { en: string; he: string }; icon: string }[]>([]);
