@@ -20,8 +20,8 @@ export default function LessonModal({
   badges,
 }: LessonModalProps) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
-      <div className="w-full max-w-lg rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-tertiary)] shadow-2xl overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4 overflow-y-auto">
+      <div className="w-full max-w-lg rounded-2xl bg-[var(--bg-secondary)] border border-[var(--bg-tertiary)] shadow-2xl overflow-hidden my-auto">
         {/* Header */}
         <div
           className={`px-6 py-4 ${

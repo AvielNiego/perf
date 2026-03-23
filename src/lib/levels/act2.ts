@@ -21,26 +21,26 @@ const levels: Level[] = [
     },
     quest: {
       description: {
-        en: 'Use ps aux to find the process using the most CPU. What is its PID?',
-        he: 'השתמשו ב-ps aux כדי למצוא את התהליך שצורך הכי הרבה CPU. מה ה-PID שלו?',
+        en: 'Run ps aux to see all processes. Which column shows the Process ID? Answer the column name.',
+        he: 'הריצו ps aux כדי לראות את כל התהליכים. איזו עמודה מציגה את מזהה התהליך? ענו את שם העמודה.',
       },
       hints: [
         {
-          en: 'Run ps aux and look at the %CPU column.',
-          he: 'הריצו ps aux והסתכלו על העמודה %CPU.',
+          en: 'Run ps aux and look at the header row at the top.',
+          he: 'הריצו ps aux והסתכלו על שורת הכותרת בחלק העליון.',
         },
         {
-          en: 'You can sort by CPU: ps aux --sort=-%cpu | head',
-          he: 'אפשר למיין לפי CPU: ps aux --sort=-%cpu | head',
+          en: 'The header shows: USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND',
+          he: 'הכותרת מציגה: USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND',
         },
         {
-          en: 'The PID is in the second column. Look at the top line after the header.',
-          he: 'ה-PID נמצא בעמודה השנייה. הסתכלו על השורה העליונה אחרי הכותרת.',
+          en: 'The second column is PID — that is the Process ID.',
+          he: 'העמודה השנייה היא PID — זה מזהה התהליך.',
         },
       ],
       validation: {
         type: 'answer_match',
-        expected: '1337',
+        expected: 'PID|pid',
       },
     },
     commandPalette: ['ps aux', 'head', '|'],
@@ -65,26 +65,26 @@ const levels: Level[] = [
     },
     quest: {
       description: {
-        en: 'Process 1337 is multi-threaded. Use ps -T to find how many threads it has. Enter the number.',
-        he: 'תהליך 1337 הוא מרובה חוטים. השתמשו ב-ps -T כדי למצוא כמה חוטים יש לו. הזינו את המספר.',
+        en: 'Run bin/thread_demo in the background (bin/thread_demo &), then use ps -T -p to see its threads. How many threads does it have? Use ps -T -p $(pgrep thread_demo) | tail -n +2 | wc -l',
+        he: 'הריצו bin/thread_demo ברקע (bin/thread_demo &), ואז השתמשו ב-ps -T -p כדי לראות את החוטים שלו. כמה חוטים יש לו? השתמשו ב-ps -T -p $(pgrep thread_demo) | tail -n +2 | wc -l',
       },
       hints: [
         {
-          en: 'Use ps -T -p 1337 to see the threads of process 1337.',
-          he: 'השתמשו ב-ps -T -p 1337 כדי לראות את החוטים של תהליך 1337.',
+          en: 'First run: bin/thread_demo &',
+          he: 'קודם הריצו: bin/thread_demo &',
         },
         {
-          en: 'Count the output lines (minus the header) or pipe to wc -l and subtract 1.',
-          he: 'ספרו את שורות הפלט (פחות הכותרת) או העבירו ל-wc -l וחסרו 1.',
+          en: 'Then: ps -T -p $(pgrep thread_demo) | tail -n +2 | wc -l',
+          he: 'ואז: ps -T -p $(pgrep thread_demo) | tail -n +2 | wc -l',
         },
         {
-          en: 'Try: ps -T -p 1337 | tail -n +2 | wc -l',
-          he: 'נסו: ps -T -p 1337 | tail -n +2 | wc -l',
+          en: 'The answer is 4 (main thread + 3 worker threads, or 5 with main).',
+          he: 'התשובה היא 4 (חוט ראשי + 3 חוטי עבודה, או 5 עם הראשי).',
         },
       ],
       validation: {
         type: 'answer_match',
-        expected: '4',
+        expected: '4|5',
       },
     },
     commandPalette: ['ps -T', 'wc -l', 'tail', '|'],
@@ -384,32 +384,32 @@ const levels: Level[] = [
         steps: [
           {
             instruction: {
-              en: 'Use ps aux to find the process named "cpu_hog" and report its PID.',
-              he: 'השתמשו ב-ps aux כדי למצוא את התהליך בשם "cpu_hog" ודווחו את ה-PID שלו.',
+              en: 'Run ps aux. What is the column name that shows memory usage percentage?',
+              he: 'הריצו ps aux. מה שם העמודה שמציגה אחוז שימוש בזיכרון?',
             },
             validation: {
-              type: 'command_run',
-              expected: 'ps aux',
+              type: 'answer_match',
+              expected: '%MEM|%mem|mem',
             },
           },
           {
             instruction: {
-              en: 'How many threads does the cpu_hog process have? Use ps -T.',
-              he: 'כמה חוטים יש לתהליך cpu_hog? השתמשו ב-ps -T.',
+              en: 'How many CPU cores does this machine have? Run nproc.',
+              he: 'כמה ליבות CPU יש למכונה הזו? הריצו nproc.',
             },
             validation: {
               type: 'answer_match',
-              expected: '8',
+              expected: '1|2|4|8',
             },
           },
           {
             instruction: {
-              en: 'Run strace -c on the provided test_io program. Which syscall takes the most total time?',
-              he: 'הריצו strace -c על תוכנית test_io שסופקה. איזו קריאת מערכת לוקחת הכי הרבה זמן?',
+              en: 'Run: strace -c ls /tmp 2>&1 | tail -1 — what is the total percentage shown?',
+              he: 'הריצו: strace -c ls /tmp 2>&1 | tail -1 — מה האחוז הכולל שמוצג?',
             },
             validation: {
               type: 'answer_match',
-              expected: 'write',
+              expected: '100|100.00',
             },
           },
           {

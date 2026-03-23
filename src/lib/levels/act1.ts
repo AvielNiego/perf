@@ -48,17 +48,17 @@ const levels: Level[] = [
             },
             validation: {
               type: 'answer_match',
-              expected: 'student',
+              expected: 'student|ubuntu',
             },
           },
           {
             instruction: {
-              en: 'Run pwd. What directory are you in?',
-              he: 'הריצו pwd. באיזו תיקייה אתם נמצאים?',
+              en: 'Run pwd. Does the path contain "perfquest"? Answer yes or no.',
+              he: 'הריצו pwd. האם הנתיב מכיל "perfquest"? ענו כן או לא.',
             },
             validation: {
               type: 'answer_match',
-              expected: '/home/student',
+              expected: 'yes|כן',
             },
           },
           {
@@ -159,7 +159,7 @@ const levels: Level[] = [
       ],
       validation: {
         type: 'answer_match',
-        expected: '42',
+        expected: '9|42',
       },
     },
     commandPalette: ['grep', 'wc -l', 'cat', '|'],
@@ -250,18 +250,18 @@ const levels: Level[] = [
           },
           {
             instruction: {
-              en: 'Search all log files for lines containing "CRITICAL" and count them.',
-              he: 'חפשו בכל קבצי הלוג שורות שמכילות "CRITICAL" וספרו אותן.',
+              en: 'How many lines in logs/app.log contain "ERROR"? Use grep and wc -l.',
+              he: 'כמה שורות ב-logs/app.log מכילות "ERROR"? השתמשו ב-grep ו-wc -l.',
             },
             validation: {
-              type: 'output_contains',
-              expected: '13',
+              type: 'answer_match',
+              expected: '9',
             },
           },
           {
             instruction: {
-              en: 'From the CRITICAL lines, extract the service name (field 3, colon-delimited) and sort them. What service appears most?',
-              he: 'מתוך השורות עם CRITICAL, חלצו את שם השירות (שדה 3, מופרד בנקודתיים) ומיינו אותם. איזה שירות מופיע הכי הרבה?',
+              en: 'From the ERROR lines in app.log, the 4th word is the service name. Which service appears most often? Use: grep ERROR logs/app.log | awk \'{print $4}\' | sort | uniq -c | sort -rn',
+              he: 'מתוך שורות ה-ERROR ב-app.log, המילה הרביעית היא שם השירות. איזה שירות מופיע הכי הרבה? השתמשו ב: grep ERROR logs/app.log | awk \'{print $4}\' | sort | uniq -c | sort -rn',
             },
             validation: {
               type: 'answer_match',
